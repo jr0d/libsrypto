@@ -4,4 +4,4 @@ project(libsrypto C)
 set(CMAKE_C_STANDARD 11)
 
 set (CMAKE_CXX_FLAGS "-Wall")
-add_library(srypto SHARED key.c key.h keypair.c keypair.h srypto.h)
+add_library(srypto SHARED key.c key.h keypair.c keypair.h srypto.h crypt.c crypt.h)

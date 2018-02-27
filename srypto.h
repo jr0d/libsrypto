@@ -9,13 +9,33 @@
 #include <stdint.h>
 
 /**
- *
+ * The size of the data packet header, used to calculate MAX_DATA_SIZE
+ * for chunking.
+ */
+#define FDATA_HEADER_SIZE 4
+#define MAX_DATA_SIZE(keylen) ((keylen) - FDATA_HEADER_SIZE)
+
+
+/**
+ * The keypair structure, used to keep track of master and tkey(encryption key)
+ * relationship
  */
 typedef struct {
-    uint16_t length;
+    uint16_t length;  /// The key size we are using
     uint8_t * master;
-    uint8_t * tkey;
+    uint8_t * tkey; /// The encryption key
 } s_keypair;
+
+/**
+ * Three buffers needed for encryption/decryption, also a place to store the checksum data
+ */
+typedef struct{
+    uint8_t * pt; /// plain text
+    uint16_t pt_len; /// plain text length
+    uint8_t * fpt; /// formatted plain text
+    uint8_t * ct; /// cypher text
+    uint16_t checksum; /// storage for checksum value derived from plain text
+} s_data;
 
 /**
  *
@@ -36,4 +56,5 @@ extern void keypair_permute_tkey(s_keypair *kp);
  * @param data
  */
 extern void keypair_permute_master(s_keypair *kp, const uint8_t *data);
+
 #endif //LIBSRYPTO_SRYPTO_H

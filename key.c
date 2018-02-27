@@ -1,8 +1,5 @@
 #include "key.h"
 
-#include <stdio.h>
-
-
 void key_init_linear(uint8_t *key, uint16_t length) {
     uint32_t *window = (uint32_t *) key;
 
