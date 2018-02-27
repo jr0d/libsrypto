@@ -6,6 +6,12 @@
 #include <stdlib.h>
 #include "crypt.h"
 
+/**
+ *
+ * @param workspace
+ * @param keylen
+ * @return
+ */
 int prepare_data(s_data *workspace, uint16_t keylen) {
     time_t seed;
     if ((seed = time(NULL)) == -1) {
