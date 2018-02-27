@@ -20,6 +20,7 @@ int prepare_data(s_data *workspace, uint16_t keylen) {
 
     /* Calculate indexes for padding */
     int nzpad = ((int) keylen + FDATA_HEADER_SIZE) % 4;
+
     if (nzpad > 0)
         nzpad = 4 - nzpad;
 

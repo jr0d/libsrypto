@@ -28,8 +28,6 @@ void keypair_permute_tkey(s_keypair *kp) {
  */
 void keypair_permute_master(s_keypair *kp, const uint8_t *data) {
     for (uint16_t i = 0; i < kp->length; i+=4 ) {
-        ((uint32_t *)kp->master)[i] = ((uint32_t *)kp->master)[i] +
-                                      ((uint32_t *)kp->tkey)[i]   +
-                                      ((uint32_t *)data)[i];
+        ((uint32_t *)kp->master)[i] += ((uint32_t *)kp->tkey)[i] + ((uint32_t *)data)[i];
     }
 }
