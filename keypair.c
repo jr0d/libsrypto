@@ -27,7 +27,7 @@ void keypair_permute_tkey(s_keypair *kp) {
  * so that it can be used to encrypt more data
  */
 void keypair_permute_master(s_keypair *kp, const uint8_t *data) {
-    for (uint16_t i = 0; i < kp->length; i+=4 )
+    for (uint16_t i = 0; i < kp->length >> 2; i++)
         ((uint32_t *)kp->master)[i]  += ((uint32_t *)kp->tkey)[i]
                                       + ((uint32_t *)data)[i];
 }
