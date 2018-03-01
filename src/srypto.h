@@ -27,7 +27,7 @@ typedef struct {
 } s_keypair;
 
 /**
- * Three buffers needed for encryption/decryption, also a place to store the checksum data
+ * Three buffers needed for encryption/decryption
  */
 typedef struct{
     uint8_t * pt; /// plain text
