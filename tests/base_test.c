@@ -3,7 +3,6 @@
 //
 
 #include <stdio.h>
-#include <key.h>
 #include <memory.h>
 #include "srypto.h"
 
@@ -43,22 +42,31 @@ int main(int argc, char **argv) {
     // Load workspace with plain text
     s_data workspace;
     memset(&workspace, 0, sizeof(workspace));
+
     uint8_t plain_text[] = "The cake is a lie!";
+    uint8_t fplain_text[256] = "";
+    uint8_t cypher_text[256] = "";
+
     workspace.pt = (uint8_t *) plain_text;
-    workspace.pt_len = (uint16_t) sizeof(plain_text);
+    workspace.pt_len = (uint16_t) sizeof(plain_text) + 1;
+    workspace.fpt = (uint8_t *) fplain_text;
+    workspace.ct = (uint8_t *) cypher_text;
 
-    printf("Hello SRYPTO!\n");
+    printf("**** libsrypto test ****\n\n");
 
-    printf("Plain text: %s\n", plain_text);
+    printf("Plain text: %s\n\n", plain_text);
+
     // Encrypt ( this causes master to mutate, so copy it (for testing, normally we wouldn't be encrypting and
     // decrypting in the same context))
     copy_key32((uint8_t *)master, (uint8_t *)master_temp, KEY_LENGTH);
 
     encrypt(&kp, &workspace);
 
-    printf("CT: \n");
-    for (int i = 0; i < KEY_LENGTH >> 2; i++)
-        printf("0x%x", workspace.ct[i]);
+    printf("Cypher Text:\n\n");
+    for (int i = 0; i < KEY_LENGTH >> 2; i++) {
+        printf("0x%x ", ((uint32_t *) workspace.ct)[i]);
+        if ((i+1) % 8  == 0) printf("\n");
+    }
     printf("\n\n");
 
     // Since fpt and ct are the same size as KEY_LENGTH, use  this function to copy
@@ -70,6 +78,7 @@ int main(int argc, char **argv) {
 
     // Restore Master
     copy_key32(master_temp, master, KEY_LENGTH);
+
     // Reset the encryption key
     key_init_linear(tkey, KEY_LENGTH);
 
@@ -81,4 +90,6 @@ int main(int argc, char **argv) {
     if ((result = decrypt(&kp, &workspace)) != S_OK) {
         printf("There was a problem: %d", result);
     }
+
+    printf("Decrypted plain text: %s\n", workspace.pt);
 }

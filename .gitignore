@@ -30,4 +30,4 @@ Makefile
 CMakeCache.txt
 *.a
 CMakeFiles/
-cmake-build-debug/
+cmake-build-*/
