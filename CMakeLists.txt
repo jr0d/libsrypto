@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.9)
 project(libsrypto C)
 
 set(CMAKE_C_STANDARD 11)
@@ -26,5 +26,5 @@ include_directories( src )
 add_executable(base_test tests/base_test.c)
 target_link_libraries( base_test PRIVATE srypto_static)
 
-add_executable(sdes interface/main.c interface/rng.c interface/rng.h)
+add_executable(sdes interface/main.c interface/rng.c interface/rng.h interface/io.c interface/io.h)
 target_link_libraries( sdes PRIVATE srypto_static )

@@ -11,7 +11,7 @@
 
 int main(int argc, char **argv) {
     // Keys
-    // TODO: master key should be stored on the file system or generated
+    // TODO: master key should be stored on the file system or generated for this test.
     uint8_t master[] = "\x50\x6b\x28\x26\x11\x59\xb9\xbe\x50\xba\x25\x4e\x03\x53\xd9\x88\xf9\xe9\x11\xe3"
             "\xcf\x0a\xaa\xe8\xd5\x1e\xa7\x37\x18\x0b\xe1\x75\x4b\xc8\x7d\xdf\x6d\xca\x3a\xd6\x2c\xe7\x31\xb8\x33\x57"
             "\xc7\x29\x00\x59\xcc\xf3\xbd\x3f\x2b\x7c\xfd\xc2\xd8\x7b\x9e\xd2\xd9\x88\xf7\x82\x4f\x15\xdd\xd9\xb4\x95"
@@ -64,8 +64,8 @@ int main(int argc, char **argv) {
 
     printf("Cypher Text:\n\n");
     for (int i = 0; i < KEY_LENGTH >> 2; i++) {
-        printf("0x%x ", ((uint32_t *) workspace.ct)[i]);
-        if ((i+1) % 8  == 0) printf("\n");
+        printf("0x%08x ", ((uint32_t *) workspace.ct)[i]);
+        if ((i+1) % 4  == 0) printf("\n");
     }
     printf("\n\n");
 
@@ -88,7 +88,7 @@ int main(int argc, char **argv) {
     srypto_result result;
 
     if ((result = decrypt(&kp, &workspace)) != S_OK) {
-        printf("There was a problem: %d", result);
+        printf("There was a problem: %d\n", result);
     }
 
     printf("Decrypted plain text: %s\n", workspace.pt);

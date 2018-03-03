@@ -50,7 +50,7 @@ int prepare_data(s_data *workspace, const s_keypair *kp, uint32_t seed) {
  * @param keylen
  * @return an unsigned short representing the checksum
  */
-inline uint16_t get_checksum(const uint8_t *key, uint16_t keylen) {
+static inline uint16_t get_checksum(const uint8_t *key, uint16_t keylen) {
     return (uint16_t) ((key[10] << 8) | (key[keylen - 1] & 0xff));
 }
 

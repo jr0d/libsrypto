@@ -96,4 +96,12 @@ extern srypto_result encrypt(s_keypair *kp, s_data *workspace);
  */
 extern srypto_result decrypt(s_keypair *kp, s_data *workspace);
 
+/**
+ *
+ * @param key
+ * @param keylen
+ * @return
+ */
+static inline uint16_t get_checksum(const uint8_t *key, uint16_t keylen);
+
 #endif //LIBSRYPTO_SRYPTO_H
